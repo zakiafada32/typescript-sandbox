@@ -1,8 +1,4 @@
 import { User } from './models/User';
 
-const user = new User({ name: 'zaki' });
-user.on('click', () => {});
-user.on('click', () => {});
-user.on('hover', () => {});
-
-console.log(user);
+const user2 = new User({ id: 1 });
+user2.fetch();

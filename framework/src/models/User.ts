@@ -1,4 +1,6 @@
+import axios, { AxiosResponse } from 'axios';
 interface UserProps {
+  id?: number;
   name?: string;
   age?: number;
 }
@@ -26,5 +28,32 @@ export class User {
     const handler = this.events[eventName] || [];
     handler.push(callback);
     this.events[eventName] = handler;
+  }
+
+  trigger(eventName: string): void {
+    const handler = this.events[eventName];
+    if (!handler || handler.length === 0) {
+      return;
+    }
+    handler.forEach((callback) => {
+      callback();
+    });
+  }
+
+  fetch(): void {
+    axios
+      .get(`http://localhost:3000/users/${this.get('id')}`)
+      .then((res: AxiosResponse): void => {
+        this.set(res.data);
+      });
+  }
+
+  save(): void {
+    const id = this.data.id;
+    if (id) {
+      axios.put(`http://localhost:3000/users/${'id'}`, this.data);
+    } else {
+      axios.post(`http://localhost:3000/users/`, this.data);
+    }
   }
 }
