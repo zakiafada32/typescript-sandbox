@@ -1,11 +1,8 @@
 import { User } from './models/User';
 
 const user = new User({ name: 'zaki' });
+user.on('click', () => {});
+user.on('click', () => {});
+user.on('hover', () => {});
 
-console.log(user.get('name'));
-console.log(user.get('age'));
-
-user.set({ name: 'Ardi', age: 25 });
-
-console.log(user.get('name'));
-console.log(user.get('age'));
+console.log(user);
