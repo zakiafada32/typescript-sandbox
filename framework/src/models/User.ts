@@ -6,23 +6,9 @@ export interface UserProps {
   age?: number;
 }
 
-// get value type of interface
-type ValueOf<T> = T[keyof T];
-type valueOfUserProps = ValueOf<UserProps>;
-
 const rootUrl = 'http://localhost:3000/users';
 
 export class User {
   public events: Eventing = new Eventing();
   public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
-
-  constructor(private data: UserProps) {}
-
-  get(propName: keyof UserProps): valueOfUserProps {
-    return this.data[propName];
-  }
-
-  set(update: UserProps): void {
-    Object.assign(this.data, update);
-  }
 }
