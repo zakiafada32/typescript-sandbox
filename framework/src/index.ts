@@ -1,8 +1,11 @@
-import { User } from './models/User';
+import { Collection } from './models/Collection';
 
-const user = new User({ name: 'A', age: 1, id: 1 });
-user.on('save', () => {
-  console.log(user);
+const collection = new Collection('http://localhost:3000/users');
+
+collection.on('change', () => {
+  console.log(collection);
 });
 
-user.save();
+console.log(collection);
+
+collection.fetch();
