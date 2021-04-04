@@ -2,6 +2,16 @@ import axios from 'axios';
 import { Dispatch } from 'redux';
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
+import 'redux-thunk';
+
+interface Object {
+  package: {
+    name: string;
+  };
+}
+interface Data {
+  objects: Object[];
+}
 
 export const searchRepositories = (term: string) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -10,7 +20,7 @@ export const searchRepositories = (term: string) => {
     });
 
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.get<Data>(
         'https://registry.npmjs.org/-/v1/search',
         {
           params: {
@@ -19,7 +29,7 @@ export const searchRepositories = (term: string) => {
         }
       );
 
-      const names = data.objects.map((result: any) => {
+      const names = data.objects.map((result: Object) => {
         return result.package.name;
       });
 
